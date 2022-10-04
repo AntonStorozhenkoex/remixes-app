@@ -1,11 +1,26 @@
 import colors from '@/helpers/theme/colors';
 
 const styles = {
+  dialog: {
+    '& .MuiPaper-root': {
+      width: 500
+    }
+  },
   dialogContent: {
     padding: '10px !important'
   },
+  textFieldContainer: {
+    position: 'relative'
+  },
+  errorMessage: {
+    color: 'red',
+    position: 'absolute',
+    bottom: 5,
+    paddingLeft: '5px',
+    fontSize: '14px !important'
+  },
   textField: {
-    marginBottom: '10px'
+    marginBottom: '30px'
   },
   select: {},
   buttonsContainer: {
@@ -23,6 +38,9 @@ const styles = {
   cancelButton: {
     background: colors.background1,
     color: colors.common.white
+  },
+  dialogTitle: {
+    textAlign: 'center'
   }
 };
 

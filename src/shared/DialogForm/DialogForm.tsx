@@ -1,6 +1,5 @@
-import React, { FC, SetStateAction } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import { useFormikContext } from 'formik';
-import { useMutation } from '@apollo/client';
 import {
   Grid,
   DialogTitle,
@@ -14,87 +13,119 @@ import {
   Checkbox,
   Button,
   InputLabel,
-  FormControl
+  FormControl,
+  Typography
 } from '@mui/material';
 import { genres } from '@/contants';
 import styles from './styles';
 import { IFormValues } from '../../../types';
-import { CREATE_REMIX_MUTATION } from '@/graphql/mutations/createRemixMutation';
-import { GET_REMIXES_QUERY } from '@/graphql/queries/getRemixesQuery';
 
 interface IDialogForm {
   isOpen: boolean;
+  remixId: number | undefined;
   setOpen: (prevState: boolean) => boolean | void;
 }
 
-const DialogForm: FC<IDialogForm> = ({ isOpen, setOpen }) => {
-  const { handleSubmit, values, handleChange } = useFormikContext<IFormValues>();
-  const [addNewRemix, { data, loading, error }] = useMutation(CREATE_REMIX_MUTATION, {
-    variables: {
-      name: values.name,
-      authorEmail: values.authorEmail,
-      isStore: values.isStore,
-      description: values.description,
-      price: Number(values.price),
-      trackLength: Number(values.trackLength),
-      genre: values.genre
-    },
-    refetchQueries: [{ query: GET_REMIXES_QUERY }]
-  });
+const DialogForm: FC<IDialogForm> = ({ isOpen, setOpen, remixId }) => {
+  const { errors, isValid, handleBlur, touched, handleSubmit, values, handleChange, resetForm } =
+    useFormikContext<IFormValues>();
   const handleClose = () => {
     setOpen(false);
+    resetForm();
   };
-  const handleAddNewQuery = () => {
-    addNewRemix();
-    setOpen(false);
-  };
-  console.log(values.isStore);
+
+  const isDisableButton = useMemo(
+    () => !isValid || Object.keys(touched).length === 0,
+    [isValid, touched]
+  );
 
   return (
-    <Dialog open={isOpen}>
-      <DialogTitle>Add Remix</DialogTitle>
-      <DialogContent sx={styles.dialogContent}>
-        <form onSubmit={handleSubmit}>
-          <TextField
-            sx={styles.textField}
-            fullWidth
-            name="name"
-            label="Name"
-            value={values.name}
-            onChange={handleChange}
-          />
-          <TextField
-            sx={styles.textField}
-            fullWidth
-            label="Author Email"
-            name="authorEmail"
-            value={values.authorEmail}
-            onChange={handleChange}
-          />
-          <TextField
-            sx={styles.textField}
-            fullWidth
-            label="Description"
-            name="description"
-            value={values.description}
-            onChange={handleChange}
-          />
-          <TextField
-            sx={styles.textField}
-            fullWidth
-            label="Price"
-            name="price"
-            value={values.price}
-            onChange={handleChange}
-          />
-          <TextField
-            sx={styles.textField}
-            fullWidth
-            label="Track Length"
-            name="trackLength"
-            value={values.trackLength}
-            onChange={handleChange}
-          />
+    <Dialog open={isOpen} sx={styles.dialog}>
+      <DialogTitle sx={styles.dialogTitle}>{remixId ? 'Edit Remix' : 'Add Remix'}</DialogTitle>
+      <form onSubmit={handleSubmit}>
+        <DialogContent sx={styles.dialogContent}>
+          <Grid sx={styles.textFieldContainer}>
+            <TextField
+              sx={styles.textField}
+              fullWidth
+              name="name"
+              label="Name"
+              value={values.name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            {errors.name && touched.name && (
+              <Typography sx={styles.errorMessage} variant="subtitle1">
+                {errors.name}
+              </Typography>
+            )}
+          </Grid>
+          <Grid sx={styles.textFieldContainer}>
+            <TextField
+              sx={styles.textField}
+              fullWidth
+              label="Author Email"
+              name="authorEmail"
+              value={values.authorEmail}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            {errors.authorEmail && touched.authorEmail && (
+              <Typography sx={styles.errorMessage} variant="subtitle1">
+                {errors.authorEmail}
+              </Typography>
+            )}
+          </Grid>
+          <Grid sx={styles.textFieldContainer}>
+            <TextField
+              sx={styles.textField}
+              fullWidth
+              label="Description"
+              name="description"
+              value={values.description}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            {errors.description && touched.description && (
+              <Typography sx={styles.errorMessage} variant="subtitle1">
+                {errors.description}
+              </Typography>
+            )}
+          </Grid>
+          <Grid sx={styles.textFieldContainer}>
+            <TextField
+              sx={styles.textField}
+              fullWidth
+              label="Price"
+              name="price"
+              value={values.price}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              type="number"
+            />
+            {errors.price && touched.price && (
+              <Typography sx={styles.errorMessage} variant="subtitle1">
+                {errors.price}
+              </Typography>
+            )}
+          </Grid>
+          <Grid sx={styles.textFieldContainer}>
+            <TextField
+              sx={styles.textField}
+              fullWidth
+              label="Track Length"
+              name="trackLength"
+              value={values.trackLength}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              type="number"
+            />
+            {errors.trackLength && touched.trackLength && (
+              <Typography sx={styles.errorMessage} variant="subtitle1">
+                {errors.trackLength}
+              </Typography>
+            )}
+          </Grid>
           <Grid container justifyContent="space-between">
             <Grid item xs={6}>
               <FormControl fullWidth>
@@ -106,6 +137,7 @@ const DialogForm: FC<IDialogForm> = ({ isOpen, setOpen }) => {
                   name="genre"
                   value={values.genre}
                   onChange={handleChange}
+                  onBlur={handleBlur}
                 >
                   {genres.map((item) => (
                     <MenuItem key={item} value={item}>
@@ -115,7 +147,6 @@ const DialogForm: FC<IDialogForm> = ({ isOpen, setOpen }) => {
                 </Select>
               </FormControl>
             </Grid>
-
             <FormControlLabel
               control={
                 <Checkbox
@@ -128,16 +159,20 @@ const DialogForm: FC<IDialogForm> = ({ isOpen, setOpen }) => {
               label="Is store"
             />
           </Grid>
-        </form>
-      </DialogContent>
-      <DialogActions sx={styles.buttonsContainer}>
-        <Button onClick={() => handleAddNewQuery()} sx={[styles.button, styles.submitButton]}>
-          Do it!
-        </Button>
-        <Button onClick={() => handleClose()} sx={[styles.button, styles.cancelButton]}>
-          Cancel
-        </Button>
-      </DialogActions>
+        </DialogContent>
+        <DialogActions sx={styles.buttonsContainer}>
+          <Button
+            disabled={isDisableButton}
+            type="submit"
+            sx={[styles.button, styles.submitButton]}
+          >
+            Do it!
+          </Button>
+          <Button onClick={() => handleClose()} sx={[styles.button, styles.cancelButton]}>
+            Cancel
+          </Button>
+        </DialogActions>
+      </form>
     </Dialog>
   );
 };

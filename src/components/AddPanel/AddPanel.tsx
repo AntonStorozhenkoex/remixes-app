@@ -12,7 +12,7 @@ const AddPanel: FC<IAddPanel> = ({ setOpen }) => {
   };
   return (
     <Grid container sx={styles.container}>
-      <Button sx={styles.addButton} onClick={() => handleOpen()}>
+      <Button data-button="add" sx={styles.addButton} onClick={() => handleOpen()}>
         Add New Remix
       </Button>
     </Grid>

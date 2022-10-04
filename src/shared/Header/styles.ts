@@ -66,7 +66,7 @@ const styles = {
     height: '80px',
     display: 'flex',
     gap: '1rem',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     flexWrap: 'wrap',
     '& > :first-of-type': {

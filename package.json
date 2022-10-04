@@ -42,12 +42,15 @@
     "react-dom": "^18.0.0",
     "react-dropzone": "^12.0.4",
     "react-hook-form": "^7.29.0",
+    "react-paginate": "^8.1.3",
     "react-router-dom": "6",
     "react-scripts": "5.0.0",
     "typescript": "^4.7.3",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
   },
   "scripts": {
+    "cypress:open": "cypress open",
     "start:local": "env-cmd -e LOCAL react-app-rewired start",
     "start:dev": "env-cmd -e DEV react-app-rewired start",
     "build:dev": "env-cmd -e DEV react-app-rewired build",
@@ -82,6 +85,7 @@
     "@graphql-codegen/typescript": "^2.4.8",
     "@graphql-codegen/typescript-operations": "^2.3.5",
     "@types/apollo-upload-client": "^17.0.0",
+    "cypress": "^10.9.0",
     "env-cmd": "^10.1.0",
     "eslint": "^8.12.0",
     "eslint-config-prettier": "^8.5.0",

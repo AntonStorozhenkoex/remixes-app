@@ -12,7 +12,9 @@ const Header = () => {
           <Link to="/">Test App</Link>
         </Container>
         <Container sx={styles.header}>
-          <Link to="/remixes">Remixes</Link>
+          <Link data-link="remixes" to="/remixes">
+            Remixes
+          </Link>
         </Container>
       </Box>
     </header>
