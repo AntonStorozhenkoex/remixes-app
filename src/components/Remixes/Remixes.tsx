@@ -1,6 +1,6 @@
-import React, { FC, useState } from 'react';
-import { useMutation, useQuery } from '@apollo/client';
-import { Formik, Form } from 'formik';
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import { useLazyQuery, useMutation } from '@apollo/client';
+import { Form, Formik } from 'formik';
 import RemixTable from '../RemixTable/RemixTable';
 import { GET_REMIXES_QUERY } from '@/graphql/queries/getRemixesQuery';
 import AddPanel from '@/components/AddPanel/AddPanel';
@@ -10,9 +10,15 @@ import { validationSchema } from '@/validation';
 import { EDIT_REMIX_MUTATION } from '@/graphql/mutations/editRemixMutation';
 import { CREATE_REMIX_MUTATION } from '@/graphql/mutations/createRemixMutation';
 import CustomAlert from '@/shared/CustomAlert/CustomAlert';
+import { SortDirectionEnum } from '@/graphql/types/_server';
+import { payload } from '@/contants';
 
 const Remixes: FC = () => {
-  const { data, refetch } = useQuery(GET_REMIXES_QUERY);
+  const [getRemixes, { data }] = useLazyQuery(GET_REMIXES_QUERY, {
+    variables: {
+      payload
+    }
+  });
   const [isOpen, setOpen] = useState<boolean>(false);
   const [remixId, setRemixId] = useState<undefined | number>(undefined);
   const [isOpenAlert, setOpenAlert] = useState<boolean>(false);
@@ -27,12 +33,26 @@ const Remixes: FC = () => {
     isStore: true
   };
   const [editRemix] = useMutation(EDIT_REMIX_MUTATION, {
-    refetchQueries: [{ query: GET_REMIXES_QUERY }]
+    refetchQueries: [
+      {
+        query: GET_REMIXES_QUERY,
+        variables: {
+          payload
+        }
+      }
+    ]
   });
   const [addNewRemix, { loading: addLoading, error: addError }] = useMutation(
     CREATE_REMIX_MUTATION,
     {
-      refetchQueries: [{ query: GET_REMIXES_QUERY }]
+      refetchQueries: [
+        {
+          query: GET_REMIXES_QUERY,
+          variables: {
+            payload
+          }
+        }
+      ]
     }
   );
 
@@ -45,11 +65,25 @@ const Remixes: FC = () => {
     setRemixId(undefined);
     setOpenAlert(true);
     setOpen(false);
-    refetch();
   };
   const handleCloseAlert = () => {
     setOpenAlert(false);
   };
+
+  useEffect(() => {
+    getRemixes();
+  }, []);
+
+  const handleSortRemixes = useCallback((columnName: string, direction: SortDirectionEnum) => {
+    getRemixes({
+      variables: {
+        payload: {
+          ...payload,
+          sorts: [{ columnName, direction }]
+        }
+      }
+    });
+  }, []);
 
   return (
     <Formik
@@ -64,7 +98,12 @@ const Remixes: FC = () => {
       {() => (
         <Form>
           {data?.remixes?.items && (
-            <RemixTable remixes={remixes} setOpen={setOpen} setRemixId={setRemixId} />
+            <RemixTable
+              remixes={remixes}
+              setOpen={setOpen}
+              setRemixId={setRemixId}
+              handleSortRemixes={handleSortRemixes}
+            />
           )}
           <AddPanel setOpen={setOpen} />
           <DialogForm remixId={remixId} isOpen={isOpen} setOpen={setOpen} />

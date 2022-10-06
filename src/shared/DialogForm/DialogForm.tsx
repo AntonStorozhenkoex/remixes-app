@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useState } from 'react';
+import React, { FC, useMemo } from 'react';
 import { useFormikContext } from 'formik';
 import {
   Grid,
@@ -46,6 +46,7 @@ const DialogForm: FC<IDialogForm> = ({ isOpen, setOpen, remixId }) => {
         <DialogContent sx={styles.dialogContent}>
           <Grid sx={styles.textFieldContainer}>
             <TextField
+              data-input="name"
               sx={styles.textField}
               fullWidth
               name="name"
@@ -62,6 +63,7 @@ const DialogForm: FC<IDialogForm> = ({ isOpen, setOpen, remixId }) => {
           </Grid>
           <Grid sx={styles.textFieldContainer}>
             <TextField
+              data-input="authorEmail"
               sx={styles.textField}
               fullWidth
               label="Author Email"
@@ -78,6 +80,7 @@ const DialogForm: FC<IDialogForm> = ({ isOpen, setOpen, remixId }) => {
           </Grid>
           <Grid sx={styles.textFieldContainer}>
             <TextField
+              data-input="description"
               sx={styles.textField}
               fullWidth
               label="Description"
@@ -94,6 +97,7 @@ const DialogForm: FC<IDialogForm> = ({ isOpen, setOpen, remixId }) => {
           </Grid>
           <Grid sx={styles.textFieldContainer}>
             <TextField
+              data-input="price"
               sx={styles.textField}
               fullWidth
               label="Price"
@@ -111,6 +115,7 @@ const DialogForm: FC<IDialogForm> = ({ isOpen, setOpen, remixId }) => {
           </Grid>
           <Grid sx={styles.textFieldContainer}>
             <TextField
+              data-input="trackLength"
               sx={styles.textField}
               fullWidth
               label="Track Length"
@@ -131,6 +136,7 @@ const DialogForm: FC<IDialogForm> = ({ isOpen, setOpen, remixId }) => {
               <FormControl fullWidth>
                 <InputLabel id="genre">Genre</InputLabel>
                 <Select
+                  data-input="genre"
                   labelId="genre"
                   label="Genre"
                   sx={styles.select}
@@ -162,13 +168,18 @@ const DialogForm: FC<IDialogForm> = ({ isOpen, setOpen, remixId }) => {
         </DialogContent>
         <DialogActions sx={styles.buttonsContainer}>
           <Button
+            data-button="submit"
             disabled={isDisableButton}
             type="submit"
             sx={[styles.button, styles.submitButton]}
           >
             Do it!
           </Button>
-          <Button onClick={() => handleClose()} sx={[styles.button, styles.cancelButton]}>
+          <Button
+            data-button="cancel"
+            onClick={() => handleClose()}
+            sx={[styles.button, styles.cancelButton]}
+          >
             Cancel
           </Button>
         </DialogActions>

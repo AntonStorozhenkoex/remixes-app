@@ -6,6 +6,7 @@ import { IRemixModel } from '@/graphql/types/_server';
 import styles from './styles';
 import { DELETE_REMIX_BY_ID } from '@/graphql/mutations/deleteRemixById';
 import { GET_REMIXES_QUERY } from '@/graphql/queries/getRemixesQuery';
+import { payload } from '@/contants';
 
 interface ITableItem {
   remix: IRemixModel;
@@ -19,7 +20,14 @@ const TableItem: FC<ITableItem> = ({ remix, setRemixId, setOpen }) => {
     variables: {
       id: remix.id
     },
-    refetchQueries: [{ query: GET_REMIXES_QUERY }]
+    refetchQueries: [
+      {
+        query: GET_REMIXES_QUERY,
+        variables: {
+          payload
+        }
+      }
+    ]
   });
   const handleEdit = () => {
     setValues({
@@ -47,10 +55,10 @@ const TableItem: FC<ITableItem> = ({ remix, setRemixId, setOpen }) => {
       <TableCell align="center">{remix.trackLength}</TableCell>
       <TableCell align="center">{remix.isStore ? 'Yes' : 'No'}</TableCell>
       <TableCell align="right">
-        <Button sx={styles.button} onClick={() => handleEdit()}>
+        <Button data-button="edit" sx={styles.button} onClick={() => handleEdit()}>
           Edit
         </Button>
-        <Button sx={styles.button} onClick={() => deleteRemix()}>
+        <Button data-button="delete" sx={styles.button} onClick={() => deleteRemix()}>
           Delete
         </Button>
       </TableCell>

@@ -3,7 +3,10 @@ import colors from '@/helpers/theme/colors';
 const styles = {
   table: {
     minHeight: 550,
-    position: 'relative'
+    position: 'relative',
+    '& th': {
+      cursor: 'pointer'
+    }
   },
   pagination: {
     position: 'absolute',
