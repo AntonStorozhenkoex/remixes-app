@@ -173,7 +173,7 @@ const DialogForm: FC<IDialogForm> = ({ isOpen, setOpen, remixId }) => {
             type="submit"
             sx={[styles.button, styles.submitButton]}
           >
-            Do it!
+            {remixId ? 'Edit' : 'Add'}
           </Button>
           <Button
             data-button="cancel"

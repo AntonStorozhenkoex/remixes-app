@@ -54,24 +54,31 @@ const RemixTable: FC<IRemixTable> = ({ setRemixId, remixes, setOpen, handleSortR
             <TableCell onClick={() => handleSort('name')} align="left">
               Name
             </TableCell>
+
             <TableCell onClick={() => handleSort('authorEmail')} align="center">
               Author Email
             </TableCell>
+
             <TableCell onClick={() => handleSort('genre')} align="center">
               Genre
             </TableCell>
+
             <TableCell onClick={() => handleSort('description')} align="center">
               Description
             </TableCell>
+
             <TableCell onClick={() => handleSort('price')} align="center">
               Price
             </TableCell>
+
             <TableCell onClick={() => handleSort('trackLength')} align="center">
               Track length
             </TableCell>
+
             <TableCell onClick={() => handleSort('isStore')} align="center">
               Store
             </TableCell>
+
             <TableCell align="right" />
           </TableRow>
         </TableHead>
@@ -82,17 +89,20 @@ const RemixTable: FC<IRemixTable> = ({ setRemixId, remixes, setOpen, handleSortR
             ))}
         </TableBody>
       </Table>
-      <Grid container sx={styles.pagination}>
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel={<Button sx={styles.button}>Next</Button>}
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={1}
-          pageCount={pageCount}
-          previousLabel={<Button sx={styles.button}>Prev</Button>}
-          pageClassName="pageCount"
-        />
-      </Grid>
+
+      {items.length > itemsPerPage && (
+        <Grid container sx={styles.pagination}>
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel={<Button sx={styles.button}>Next</Button>}
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={1}
+            pageCount={pageCount}
+            previousLabel={<Button sx={styles.button}>Prev</Button>}
+            pageClassName="pageCount"
+          />
+        </Grid>
+      )}
     </TableContainer>
   );
 };

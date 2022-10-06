@@ -11,8 +11,8 @@ describe('Load page', () => {
     cy.get('[data-input="name"]').type('Tik-tok King');
     cy.get('[data-input="authorEmail"]').type('tiktok@ok.ru');
     cy.get('[data-input="description"]').type('Something interesting');
-    cy.get('[data-input="price"]').clear().type('12');
-    cy.get('[data-input="trackLength"]').clear().type('12');
+    cy.get('[data-input="price"]').type('12');
+    cy.get('[data-input="trackLength"]').type('12');
     cy.get('[data-button="submit"]').click();
     cy.wait(3000);
   });

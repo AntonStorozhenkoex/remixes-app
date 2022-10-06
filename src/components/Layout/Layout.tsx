@@ -1,7 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Header from '../../shared/Header/Header';
-import Footer from '../../shared/Footer/Footer';
 import styles from './styles';
 
 const Layout = () => {
@@ -13,7 +12,6 @@ const Layout = () => {
           <Outlet />
         </main>
       </Box>
-      <Footer />
     </Box>
   );
 };

@@ -28,11 +28,11 @@ const Remixes: FC = () => {
     authorEmail: '',
     genre: 'rock',
     description: '',
-    price: 0,
-    trackLength: 0,
+    price: '',
+    trackLength: '',
     isStore: true
   };
-  const [editRemix] = useMutation(EDIT_REMIX_MUTATION, {
+  const [editRemix, { error: editError }] = useMutation(EDIT_REMIX_MUTATION, {
     refetchQueries: [
       {
         query: GET_REMIXES_QUERY,
@@ -97,6 +97,7 @@ const Remixes: FC = () => {
     >
       {() => (
         <Form>
+          <AddPanel setOpen={setOpen} />
           {data?.remixes?.items && (
             <RemixTable
               remixes={remixes}
@@ -105,12 +106,11 @@ const Remixes: FC = () => {
               handleSortRemixes={handleSortRemixes}
             />
           )}
-          <AddPanel setOpen={setOpen} />
           <DialogForm remixId={remixId} isOpen={isOpen} setOpen={setOpen} />
           {addLoading || (
             <CustomAlert
               open={isOpenAlert}
-              errorMessage={addError?.message}
+              errorMessage={addError?.message || editError?.message}
               handleClose={handleCloseAlert}
             />
           )}

@@ -2,7 +2,7 @@ import colors from '../../helpers/theme/colors';
 
 const styles = {
   table: {
-    minHeight: 550,
+    height: '85vh',
     position: 'relative',
     '& th': {
       cursor: 'pointer'

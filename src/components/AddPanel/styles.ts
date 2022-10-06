@@ -2,9 +2,9 @@ import colors from '../../helpers/theme/colors';
 
 const styles = {
   container: {
-    position: 'fixed',
-    bottom: 5,
-    left: 10
+    display: 'flex',
+    justifyContent: 'flex-end',
+    paddingRight: '16px'
   },
   addButton: {
     color: colors.common.white,

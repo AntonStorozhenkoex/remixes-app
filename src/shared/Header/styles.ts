@@ -63,7 +63,7 @@ const styles = {
     width: 'inherit'
   },
   header: {
-    height: '80px',
+    height: '70px',
     display: 'flex',
     gap: '1rem',
     justifyContent: 'center',
@@ -93,6 +93,7 @@ const styles = {
     },
     '& > a': {
       textDecoration: 'none',
+      fontSize: '16px',
       color: `${colors.common.black}`
     }
   }

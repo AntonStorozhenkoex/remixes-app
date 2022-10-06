@@ -3,7 +3,7 @@ export interface IFormValues {
   authorEmail: string;
   genre: string;
   description: string;
-  price: number;
-  trackLength: number;
+  price: number | '';
+  trackLength: number | '';
   isStore: boolean;
 }

@@ -7,9 +7,7 @@ export const validationSchema = object({
     .max(50, 'Max length is 50 characters'),
   authorEmail: string().required('Author email is required').email('Email invalid'),
   isStore: boolean(),
-  description: string()
-    .min(0, 'Min length is 0 characters')
-    .max(500, 'Max length is 500 characters'),
+  description: string().max(500, 'Max length is 500 characters'),
   price: number()
     .required('Price is required')
     .min(1, 'Min value is 1')
