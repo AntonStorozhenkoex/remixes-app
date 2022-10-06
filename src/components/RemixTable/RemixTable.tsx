@@ -10,7 +10,7 @@ import {
   TableRow
 } from '@mui/material';
 import ReactPaginate from 'react-paginate';
-import { IRemixesModel, IRemixModel, SortDirectionEnum } from '@/graphql/types/_server';
+import { IRemixesModel, IRemixModel, SortDirectionEnum } from '../../graphql/types/_server';
 import TableItem from '../TableItem/TableItem';
 import styles from './styles';
 

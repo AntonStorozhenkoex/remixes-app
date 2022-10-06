@@ -2,11 +2,11 @@ import React, { Dispatch, FC, SetStateAction } from 'react';
 import { useMutation } from '@apollo/client';
 import { useFormikContext } from 'formik';
 import { Button, TableCell, TableRow } from '@mui/material';
-import { IRemixModel } from '@/graphql/types/_server';
+import { IRemixModel } from '../../graphql/types/_server';
 import styles from './styles';
-import { DELETE_REMIX_BY_ID } from '@/graphql/mutations/deleteRemixById';
-import { GET_REMIXES_QUERY } from '@/graphql/queries/getRemixesQuery';
-import { payload } from '@/contants';
+import { DELETE_REMIX_BY_ID } from '../../graphql/mutations/deleteRemixById';
+import { GET_REMIXES_QUERY } from '../../graphql/queries/getRemixesQuery';
+import { payload } from '../../contants';
 
 interface ITableItem {
   remix: IRemixModel;

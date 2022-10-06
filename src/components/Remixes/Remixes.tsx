@@ -2,16 +2,16 @@ import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useLazyQuery, useMutation } from '@apollo/client';
 import { Form, Formik } from 'formik';
 import RemixTable from '../RemixTable/RemixTable';
-import { GET_REMIXES_QUERY } from '@/graphql/queries/getRemixesQuery';
-import AddPanel from '@/components/AddPanel/AddPanel';
-import DialogForm from '@/shared/DialogForm/DialogForm';
+import { GET_REMIXES_QUERY } from '../../graphql/queries/getRemixesQuery';
+import AddPanel from '../AddPanel/AddPanel';
+import DialogForm from '../../shared/DialogForm/DialogForm';
 import { IFormValues } from '../../../types';
-import { validationSchema } from '@/validation';
-import { EDIT_REMIX_MUTATION } from '@/graphql/mutations/editRemixMutation';
-import { CREATE_REMIX_MUTATION } from '@/graphql/mutations/createRemixMutation';
-import CustomAlert from '@/shared/CustomAlert/CustomAlert';
-import { SortDirectionEnum } from '@/graphql/types/_server';
-import { payload } from '@/contants';
+import { validationSchema } from '../../validation';
+import { EDIT_REMIX_MUTATION } from '../../graphql/mutations/editRemixMutation';
+import { CREATE_REMIX_MUTATION } from '../../graphql/mutations/createRemixMutation';
+import CustomAlert from '../../shared/CustomAlert/CustomAlert';
+import { SortDirectionEnum } from '../../graphql/types/_server';
+import { payload } from '../../contants';
 
 const Remixes: FC = () => {
   const [getRemixes, { data }] = useLazyQuery(GET_REMIXES_QUERY, {

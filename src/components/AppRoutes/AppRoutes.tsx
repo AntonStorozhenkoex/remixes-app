@@ -1,9 +1,9 @@
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import { FC } from 'react';
-import Home from '@/components/Home/Home';
+import Home from '../Home/Home';
 import Layout from '../Layout/Layout';
-import ScrollToTop from '@/shared/ScrollToTop/ScrollToTop';
-import Remixes from '@/components/Remixes/Remixes';
+import ScrollToTop from '../../shared/ScrollToTop/ScrollToTop';
+import Remixes from '../Remixes/Remixes';
 
 const AppRoutes: FC = () => {
   return (

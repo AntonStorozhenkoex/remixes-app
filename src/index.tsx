@@ -8,6 +8,5 @@ const root = createRoot(container as HTMLElement);
 const app = <App />;
 
 root.render(app);
-console.log('Index', 'Rendered');
 
 reportWebVitals();

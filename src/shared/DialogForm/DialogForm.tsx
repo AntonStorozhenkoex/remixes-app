@@ -16,7 +16,7 @@ import {
   FormControl,
   Typography
 } from '@mui/material';
-import { genres } from '@/contants';
+import { genres } from '../../contants';
 import styles from './styles';
 import { IFormValues } from '../../../types';
 
